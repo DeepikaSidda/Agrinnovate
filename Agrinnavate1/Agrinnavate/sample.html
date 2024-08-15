@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Health Check</title>
+    <style>
+        /* styles.css */
+body {
+    background-image: url('https://res.cloudinary.com/dtmfkejem/image/upload/v1722863611/DeWatermark.ai_1722863301915_fhby6p.png');
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#plant-health {
+    padding: 20px;
+    background-color: #e9f5e9;
+    border-radius: 10px;
+    width: 60%;
+    text-align: center;
+}
+
+#plant-health-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input-section {
+    margin-bottom: 20px;
+}
+
+.file-input {
+    display: none;
+}
+
+.choose-btn {
+    padding: 10px 20px;
+    background-color: #32CD32;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.preview-image {
+    display: block;
+    margin-top: 20px;
+    max-width: 300px;
+    border-radius: 10px;
+}
+
+.result-section {
+    margin-top: 20px;
+}
+
+#plantStatus {
+    font-size: 18px;
+    font-weight: bold;
+    color: #555;
+}
+
+    </style>>
+</head>
+<body>
+    <section id="plant-health">
+        <h2>Plant Health Check</h2>
+        <div id="plant-health-content">
+            <div class="input-section">
+                <input type="file" id="plantImageInput" class="file-input" onchange="analyzePlantImage()">
+                <label for="plantImageInput" class="choose-btn">Upload Plant Image</label>
+                <img id="plantPreview" src="" alt="Plant Preview" class="preview-image" />
+            </div>
+            <div class="result-section">
+                <h3>Plant Condition:</h3>
+                <p id="plantStatus">Please upload an image to check the plant's health.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // script.js
+function analyzePlantImage() {
+    const plantImageInput = document.getElementById('plantImageInput');
+    const plantPreview = document.getElementById('plantPreview');
+    const plantStatus = document.getElementById('plantStatus');
+
+    const file = plantImageInput.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+        plantPreview.src = e.target.result;
+
+        // Simulate plant analysis (in a real scenario, this could be an API call)
+        const condition = simulatePlantAnalysis();
+
+        plantStatus.innerText = condition;
+        plantStatus.style.color = getConditionColor(condition);
+    };
+
+    reader.readAsDataURL(file);
+}
+
+function simulatePlantAnalysis() {
+    const conditions = ['Healthy', 'Unhealthy', 'Requires Treatment'];
+    return conditions[Math.floor(Math.random() * conditions.length)];
+}
+
+function getConditionColor(condition) {
+    switch (condition) {
+        case 'Healthy':
+            return 'green';
+        case 'Unhealthy':
+            return 'orange';
+        case 'Requires Treatment':
+            return 'red';
+        default:
+            return 'black';
+    }
+}
+
+    </script>
+</body>
+</html>
